@@ -36,6 +36,7 @@ export default function OpenRouterConfig({
     setModels([]);
     setModelsChecked(false);
     onInputChange("", "openrouter_model");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiKey]);
 
   const onApiKeyChange = (value: string) => {
