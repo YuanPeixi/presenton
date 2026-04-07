@@ -53,6 +53,8 @@ export const updateLLMConfig = (
     dall_e_3_quality: "DALL_E_3_QUALITY",
     gpt_image_1_5_quality: "GPT_IMAGE_1_5_QUALITY",
     codex_model: "CODEX_MODEL",
+    openrouter_api_key: "OPENROUTER_API_KEY",
+    openrouter_model: "OPENROUTER_MODEL",
   };
 
   const configKey = fieldMappings[field];

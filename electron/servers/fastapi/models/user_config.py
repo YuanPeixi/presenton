@@ -58,3 +58,7 @@ class UserConfig(BaseModel):
     CODEX_USERNAME: Optional[str] = None
     CODEX_EMAIL: Optional[str] = None
     CODEX_IS_PRO: Optional[bool] = None
+
+    # OpenRouter
+    OPENROUTER_API_KEY: Optional[str] = None
+    OPENROUTER_MODEL: Optional[str] = None

@@ -21,6 +21,8 @@ from utils.get_env import (
     get_ollama_url_env,
     get_openai_api_key_env,
     get_openai_model_env,
+    get_openrouter_api_key_env,
+    get_openrouter_model_env,
     get_pexels_api_key_env,
     get_tool_calls_env,
     get_user_config_path_env,
@@ -55,6 +57,8 @@ from utils.set_env import (
     set_ollama_url_env,
     set_openai_api_key_env,
     set_openai_model_env,
+    set_openrouter_api_key_env,
+    set_openrouter_model_env,
     set_pexels_api_key_env,
     set_image_provider_env,
     set_pixabay_api_key_env,
@@ -133,6 +137,8 @@ def get_user_config():
         CODEX_REFRESH_TOKEN=existing_config.CODEX_REFRESH_TOKEN or get_codex_refresh_token_env(),
         CODEX_TOKEN_EXPIRES=existing_config.CODEX_TOKEN_EXPIRES or get_codex_token_expires_env(),
         CODEX_ACCOUNT_ID=existing_config.CODEX_ACCOUNT_ID or get_codex_account_id_env(),
+        OPENROUTER_API_KEY=existing_config.OPENROUTER_API_KEY or get_openrouter_api_key_env(),
+        OPENROUTER_MODEL=existing_config.OPENROUTER_MODEL or get_openrouter_model_env(),
     )
 
 
@@ -196,6 +202,10 @@ def update_env_with_user_config():
         set_codex_token_expires_env(user_config.CODEX_TOKEN_EXPIRES)
     if user_config.CODEX_ACCOUNT_ID:
         set_codex_account_id_env(user_config.CODEX_ACCOUNT_ID)
+    if user_config.OPENROUTER_API_KEY:
+        set_openrouter_api_key_env(user_config.OPENROUTER_API_KEY)
+    if user_config.OPENROUTER_MODEL:
+        set_openrouter_model_env(user_config.OPENROUTER_MODEL)
 
 
 def save_codex_tokens_to_user_config() -> None:

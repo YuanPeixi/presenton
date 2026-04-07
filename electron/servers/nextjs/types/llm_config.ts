@@ -53,6 +53,10 @@ export interface LLMConfig {
   CODEX_EMAIL?: string;
   CODEX_IS_PRO?: boolean;
 
+  // OpenRouter
+  OPENROUTER_API_KEY?: string;
+  OPENROUTER_MODEL?: string;
+
   // Only used in UI settings
   USE_CUSTOM_URL?: boolean;
 }

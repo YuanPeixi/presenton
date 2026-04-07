@@ -50,6 +50,10 @@ export interface LLMConfig {
   CODEX_TOKEN_EXPIRES?: string;
   CODEX_ACCOUNT_ID?: string;
 
+  // OpenRouter
+  OPENROUTER_API_KEY?: string;
+  OPENROUTER_MODEL?: string;
+
   // Only used in UI settings
   USE_CUSTOM_URL?: boolean;
 }

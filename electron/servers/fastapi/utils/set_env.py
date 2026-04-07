@@ -136,3 +136,11 @@ def set_codex_is_pro_env(value: str):
 
 def set_codex_model_env(value: str):
     os.environ["CODEX_MODEL"] = value
+
+
+def set_openrouter_api_key_env(value: str):
+    os.environ["OPENROUTER_API_KEY"] = value
+
+
+def set_openrouter_model_env(value: str):
+    os.environ["OPENROUTER_MODEL"] = value

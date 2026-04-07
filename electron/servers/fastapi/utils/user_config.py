@@ -21,6 +21,8 @@ from utils.get_env import (
     get_ollama_url_env,
     get_openai_api_key_env,
     get_openai_model_env,
+    get_openrouter_api_key_env,
+    get_openrouter_model_env,
     get_pexels_api_key_env,
     get_tool_calls_env,
     get_user_config_path_env,
@@ -58,6 +60,8 @@ from utils.set_env import (
     set_ollama_url_env,
     set_openai_api_key_env,
     set_openai_model_env,
+    set_openrouter_api_key_env,
+    set_openrouter_model_env,
     set_pexels_api_key_env,
     set_image_provider_env,
     set_pixabay_api_key_env,
@@ -146,6 +150,8 @@ def get_user_config():
             if existing_config.CODEX_IS_PRO is not None
             else parse_bool_or_none(get_codex_is_pro_env())
         ),
+        OPENROUTER_API_KEY=existing_config.OPENROUTER_API_KEY or get_openrouter_api_key_env(),
+        OPENROUTER_MODEL=existing_config.OPENROUTER_MODEL or get_openrouter_model_env(),
     )
 
 
@@ -215,6 +221,10 @@ def update_env_with_user_config():
         set_codex_email_env(user_config.CODEX_EMAIL)
     if user_config.CODEX_IS_PRO is not None:
         set_codex_is_pro_env(str(user_config.CODEX_IS_PRO))
+    if user_config.OPENROUTER_API_KEY:
+        set_openrouter_api_key_env(user_config.OPENROUTER_API_KEY)
+    if user_config.OPENROUTER_MODEL:
+        set_openrouter_model_env(user_config.OPENROUTER_MODEL)
 
 
 def save_codex_tokens_to_user_config() -> None:

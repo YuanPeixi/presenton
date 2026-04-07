@@ -6,6 +6,7 @@ import AnthropicConfig from "./AnthropicConfig";
 import OllamaConfig from "./OllamaConfig";
 import CustomConfig from "./CustomConfig";
 import CodexConfig from "./CodexConfig";
+import OpenRouterConfig from "./OpenRouterConfig";
 import {
   updateLLMConfig,
   changeProvider as changeProviderUtil,
@@ -56,12 +57,14 @@ export default function LLMProviderSelection({
       (llmConfig.LLM === "ollama" && !llmConfig.OLLAMA_MODEL) ||
       (llmConfig.LLM === "custom" && !llmConfig.CUSTOM_MODEL) ||
       (llmConfig.LLM === "anthropic" && !llmConfig.ANTHROPIC_MODEL) ||
-      (llmConfig.LLM === "codex" && !llmConfig.CODEX_MODEL);
+      (llmConfig.LLM === "codex" && !llmConfig.CODEX_MODEL) ||
+      (llmConfig.LLM === "openrouter" && !llmConfig.OPENROUTER_MODEL);
 
     const needsProviderApiKey =
       (llmConfig.LLM === "openai" && !llmConfig.OPENAI_API_KEY) ||
       (llmConfig.LLM === "google" && !llmConfig.GOOGLE_API_KEY) ||
-      (llmConfig.LLM === "anthropic" && !llmConfig.ANTHROPIC_API_KEY);
+      (llmConfig.LLM === "anthropic" && !llmConfig.ANTHROPIC_API_KEY) ||
+      (llmConfig.LLM === "openrouter" && !llmConfig.OPENROUTER_API_KEY);
 
     const needsImageProviderApiKey =
       !llmConfig.DISABLE_IMAGE_GENERATION &&
@@ -226,13 +229,14 @@ export default function LLMProviderSelection({
           onValueChange={handleProviderChange}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-6 bg-transparent h-10">
+          <TabsList className="grid w-full grid-cols-7 bg-transparent h-10">
             <TabsTrigger value="openai">OpenAI</TabsTrigger>
             <TabsTrigger value="google">Google</TabsTrigger>
             <TabsTrigger value="anthropic">Anthropic</TabsTrigger>
             <TabsTrigger value="ollama">Ollama</TabsTrigger>
             <TabsTrigger value="custom">Custom</TabsTrigger>
             <TabsTrigger value="codex">ChatGPT</TabsTrigger>
+            <TabsTrigger value="openrouter">OpenRouter</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -302,6 +306,15 @@ export default function LLMProviderSelection({
           <TabsContent value="codex" className="mt-6">
             <CodexConfig
               codexModel={llmConfig.CODEX_MODEL || ""}
+              onInputChange={input_field_changed}
+            />
+          </TabsContent>
+
+          {/* OpenRouter Content */}
+          <TabsContent value="openrouter" className="mt-6">
+            <OpenRouterConfig
+              openrouterApiKey={llmConfig.OPENROUTER_API_KEY || ""}
+              openrouterModel={llmConfig.OPENROUTER_MODEL || ""}
               onInputChange={input_field_changed}
             />
           </TabsContent>

@@ -132,6 +132,13 @@ export const LLM_PROVIDERS: Record<string, LLMProviderOption> = {
     description: "ChatGPT Plus/Pro via OAuth",
     icon: "/icons/chatgpt.png",
   },
+  openrouter: {
+    value: "openrouter",
+    label: "OpenRouter",
+    description: "Access 100+ models via OpenRouter",
+    url: "https://openrouter.ai/api/v1",
+    icon: "/providers/openai.png",
+  },
 };
 
 export const DALLE_3_QUALITY_OPTIONS = [

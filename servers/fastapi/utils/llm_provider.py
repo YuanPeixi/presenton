@@ -14,6 +14,7 @@ from utils.get_env import (
     get_llm_provider_env,
     get_ollama_model_env,
     get_openai_model_env,
+    get_openrouter_model_env,
 )
 
 
@@ -23,7 +24,7 @@ def get_llm_provider():
     except:
         raise HTTPException(
             status_code=500,
-            detail=f"Invalid LLM provider. Please select one of: openai, google, anthropic, ollama, custom, codex",
+            detail=f"Invalid LLM provider. Please select one of: openai, google, anthropic, ollama, custom, codex, openrouter",
         )
 
 
@@ -51,6 +52,10 @@ def is_codex_selected():
     return get_llm_provider() == LLMProvider.CODEX
 
 
+def is_openrouter_selected():
+    return get_llm_provider() == LLMProvider.OPENROUTER
+
+
 def get_model():
     selected_llm = get_llm_provider()
     if selected_llm == LLMProvider.OPENAI:
@@ -65,8 +70,10 @@ def get_model():
         return get_custom_model_env()
     elif selected_llm == LLMProvider.CODEX:
         return get_codex_model_env()
+    elif selected_llm == LLMProvider.OPENROUTER:
+        return get_openrouter_model_env()
     else:
         raise HTTPException(
             status_code=500,
-            detail=f"Invalid LLM provider. Please select one of: openai, google, anthropic, ollama, custom, codex",
+            detail=f"Invalid LLM provider. Please select one of: openai, google, anthropic, ollama, custom, codex, openrouter",
         )
