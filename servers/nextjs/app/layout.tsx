@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Syne, Unbounded } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import MixpanelInitializer from "./MixpanelInitializer";
@@ -16,15 +15,13 @@ const inter = localFont({
   variable: "--font-inter",
 });
 
-const syne = Syne({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const syne = localFont({
+  src: "./fonts/Syne[wght].ttf",
   variable: "--font-syne",
 });
 
-const unbounded = Unbounded({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const unbounded = localFont({
+  src: "./fonts/Unbounded[wght].ttf",
   variable: "--font-unbounded",
 });
 
