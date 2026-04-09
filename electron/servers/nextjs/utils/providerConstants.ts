@@ -132,6 +132,13 @@ export const LLM_PROVIDERS: Record<string, LLMProviderOption> = {
     description: "OpenAI-compatible LLM",
     icon: "/providers/custom.svg",
   },
+  openrouter: {
+    value: "openrouter",
+    label: "OpenRouter",
+    description: "Access 100+ models via OpenRouter",
+    url: "https://openrouter.ai/api/v1",
+    icon: "/providers/openai.png",
+  },
 
 };
 

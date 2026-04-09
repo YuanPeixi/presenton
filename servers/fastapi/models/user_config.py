@@ -55,3 +55,7 @@ class UserConfig(BaseModel):
     CODEX_REFRESH_TOKEN: Optional[str] = None
     CODEX_TOKEN_EXPIRES: Optional[str] = None
     CODEX_ACCOUNT_ID: Optional[str] = None
+
+    # OpenRouter
+    OPENROUTER_API_KEY: Optional[str] = None
+    OPENROUTER_MODEL: Optional[str] = None

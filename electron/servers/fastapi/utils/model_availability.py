@@ -6,6 +6,7 @@ from utils.available_models import (
     list_available_anthropic_models,
     list_available_google_models,
     list_available_openai_compatible_models,
+    list_available_openrouter_models,
 )
 from utils.get_env import (
     get_anthropic_api_key_env,
@@ -18,6 +19,8 @@ from utils.get_env import (
     get_pexels_api_key_env,
     get_comfyui_url_env,
     get_comfyui_workflow_env,
+    get_openrouter_api_key_env,
+    get_openrouter_model_env,
 )
 from utils.get_env import get_google_api_key_env
 from utils.get_env import get_ollama_model_env
@@ -28,6 +31,7 @@ from utils.llm_provider import (
     get_llm_provider,
     is_custom_llm_selected,
     is_ollama_selected,
+    is_openrouter_selected,
 )
 from utils.ollama import pull_ollama_model
 from utils.image_provider import (
@@ -108,6 +112,14 @@ async def check_llm_and_image_provider_api_or_model_availability():
             print("Available models: ", available_models)
             if custom_model not in available_models:
                 raise Exception(f"Model {custom_model} is not available")
+
+        elif is_openrouter_selected():
+            openrouter_api_key = get_openrouter_api_key_env()
+            if not openrouter_api_key:
+                raise Exception("OPENROUTER_API_KEY must be provided")
+            openrouter_model = get_openrouter_model_env()
+            if not openrouter_model:
+                raise Exception("OPENROUTER_MODEL must be provided")
 
         # Skip image provider and API key checks if image generation is disabled
         if is_image_generation_disabled():

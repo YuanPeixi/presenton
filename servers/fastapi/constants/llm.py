@@ -1,4 +1,5 @@
 OPENAI_URL = "https://api.openai.com/v1"
+OPENROUTER_URL = "https://openrouter.ai/api/v1"
 
 # Default models
 DEFAULT_OPENAI_MODEL = "gpt-4.1"

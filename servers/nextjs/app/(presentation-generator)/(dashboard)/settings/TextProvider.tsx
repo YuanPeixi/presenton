@@ -46,6 +46,10 @@ const TextProvider = ({
                 return 'OLLAMA_MODEL';
             case 'custom':
                 return 'CUSTOM_MODEL';
+            case 'openrouter':
+                return 'OPENROUTER_MODEL';
+            case 'codex':
+                return 'CODEX_MODEL';
             default:
                 return '';
         }
@@ -61,6 +65,8 @@ const TextProvider = ({
                 return 'ANTHROPIC_API_KEY';
             case 'custom':
                 return 'CUSTOM_LLM_API_KEY';
+            case 'openrouter':
+                return 'OPENROUTER_API_KEY';
             default:
                 return '';
         }
@@ -103,7 +109,9 @@ const TextProvider = ({
                         ? 'ANTHROPIC_API_KEY'
                         : llm === 'custom'
                             ? 'CUSTOM_LLM_API_KEY'
-                            : '';
+                            : llm === 'openrouter'
+                                ? 'OPENROUTER_API_KEY'
+                                : '';
         if (keyField) {
             onInputChange(value, keyField);
         }
@@ -114,6 +122,8 @@ const TextProvider = ({
         if (selectedProvider === 'google' && !currentApiKey) return;
         if (selectedProvider === 'anthropic' && !currentApiKey) return;
         if (selectedProvider === 'custom' && !currentCustomUrl) return;
+        if (selectedProvider === 'openrouter' && !currentApiKey) return;
+        if (selectedProvider === 'codex') return;
 
         setModelsLoading(true);
         try {
@@ -140,6 +150,16 @@ const TextProvider = ({
                 });
             } else if (selectedProvider === 'ollama') {
                 response = await fetch('/api/v1/ppt/ollama/models/supported');
+            } else if (selectedProvider === 'openrouter') {
+                response = await fetch('/api/v1/ppt/openrouter/models/available', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        api_key: currentApiKey
+                    }),
+                });
             } else {
                 response = await fetch('/api/v1/ppt/openai/models/available', {
                     method: 'POST',
@@ -430,7 +450,8 @@ const TextProvider = ({
                                         (selectedProvider === 'openai' && !currentApiKey) ||
                                         (selectedProvider === 'google' && !currentApiKey) ||
                                         (selectedProvider === 'anthropic' && !currentApiKey) ||
-                                        (selectedProvider === 'custom' && !currentCustomUrl)
+                                        (selectedProvider === 'custom' && !currentCustomUrl) ||
+                                        (selectedProvider === 'openrouter' && !currentApiKey)
                                     }
                                     className={`mt-4 py-2.5 bg-[#EDEEEF] px-3.5 w-fit  rounded-[48px] text-xs font-semibold text-[#101323] transition-all duration-200 border ${modelsLoading
                                         ? " border-gray-300 cursor-not-allowed text-gray-500"
