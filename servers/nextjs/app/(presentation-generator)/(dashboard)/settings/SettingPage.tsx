@@ -226,7 +226,11 @@ const SettingsPage = () => {
             ? llmConfig.OLLAMA_MODEL
             : textProviderKey === "custom"
               ? llmConfig.CUSTOM_MODEL
-              : "";
+              : textProviderKey === "openrouter"
+                ? llmConfig.OPENROUTER_MODEL
+                : textProviderKey === "codex"
+                  ? llmConfig.CODEX_MODEL
+                  : "";
   const textSummary = selectedTextModel
     ? `${textProviderLabel} (${selectedTextModel})`
     : textProviderLabel;
