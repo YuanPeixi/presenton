@@ -71,6 +71,10 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
                 return 'OLLAMA_MODEL';
             case 'custom':
                 return 'CUSTOM_MODEL';
+            case 'openrouter':
+                return 'OPENROUTER_MODEL';
+            case 'codex':
+                return 'CODEX_MODEL';
             default:
                 return '';
         }
@@ -85,6 +89,8 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
                 return 'ANTHROPIC_API_KEY';
             case 'custom':
                 return 'CUSTOM_LLM_API_KEY';
+            case 'openrouter':
+                return 'OPENROUTER_API_KEY';
             default:
                 return '';
         }
@@ -107,6 +113,8 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
         if (llmConfig.LLM === 'google' && !currentApiKey) return;
         if (llmConfig.LLM === 'anthropic' && !currentApiKey) return;
         if (llmConfig.LLM === 'custom' && !llmConfig.CUSTOM_LLM_URL) return;
+        if (llmConfig.LLM === 'openrouter' && !currentApiKey) return;
+        if (llmConfig.LLM === 'codex') return;
 
         setModelsLoading(true);
         try {
@@ -133,6 +141,16 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
                 });
             } else if (llmConfig.LLM === 'ollama') {
                 response = await fetch('/api/v1/ppt/ollama/models/supported');
+            } else if (llmConfig.LLM === 'openrouter') {
+                response = await fetch('/api/v1/ppt/openrouter/models/available', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        api_key: currentApiKey
+                    }),
+                });
             } else {
                 response = await fetch('/api/v1/ppt/openai/models/available', {
                     method: 'POST',
@@ -466,6 +484,15 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
                                         </>
                                     )}
                                 </>
+                            ) : llmConfig.LLM === 'codex' ? (
+                                <>
+                                    <label className="block text-sm font-medium capitalize text-gray-700 mb-2">
+                                        ChatGPT (Codex)
+                                    </label>
+                                    <p className="text-xs text-gray-500 py-3 px-2 border border-gray-200 rounded-lg bg-gray-50">
+                                        ChatGPT uses OAuth — no API key required. Sign in via the Settings page after saving.
+                                    </p>
+                                </>
                             ) : (
                                 <>
                                     <label className="block text-sm font-medium capitalize text-gray-700 mb-2">
@@ -509,7 +536,7 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
                         </div>
 
 
-                        {llmConfig.LLM !== 'ollama' && (!modelsChecked || (modelsChecked && availableModels.length === 0)) && (
+                        {llmConfig.LLM !== 'ollama' && llmConfig.LLM !== 'codex' && (!modelsChecked || (modelsChecked && availableModels.length === 0)) && (
 
                             <button
                                 onClick={fetchAvailableModels}
@@ -518,7 +545,8 @@ const PresentonMode = ({ currentStep, setStep }: { currentStep: number, setStep:
                                     (llmConfig.LLM === 'openai' && !currentApiKey) ||
                                     (llmConfig.LLM === 'google' && !currentApiKey) ||
                                     (llmConfig.LLM === 'anthropic' && !currentApiKey) ||
-                                    (llmConfig.LLM === 'custom' && !llmConfig.CUSTOM_LLM_URL)
+                                    (llmConfig.LLM === 'custom' && !llmConfig.CUSTOM_LLM_URL) ||
+                                    (llmConfig.LLM === 'openrouter' && !currentApiKey)
                                 }
                                 className={`mt-4 py-2.5 bg-[#EDEEEF] px-3.5 w-fit  rounded-[48px] text-xs font-semibold text-[#101323] transition-all duration-200 border ${modelsLoading
                                     ? " border-gray-300 cursor-not-allowed text-gray-500"
