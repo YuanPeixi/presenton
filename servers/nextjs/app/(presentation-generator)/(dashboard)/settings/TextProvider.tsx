@@ -123,6 +123,7 @@ const TextProvider = ({
         if (selectedProvider === 'anthropic' && !currentApiKey) return;
         if (selectedProvider === 'custom' && !currentCustomUrl) return;
         if (selectedProvider === 'openrouter' && !currentApiKey) return;
+        if (selectedProvider === 'codex') return;
 
         setModelsLoading(true);
         try {
