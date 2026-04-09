@@ -65,7 +65,7 @@ const setupUserConfigFromEnv = () => {
     existingConfig = JSON.parse(readFileSync(userConfigPath, "utf8"));
   }
 
-  if (!["ollama", "openai", "google", "anthropic", "custom", "codex"].includes(existingConfig.LLM)) {
+  if (!["ollama", "openai", "google", "anthropic", "custom", "codex", "openrouter"].includes(existingConfig.LLM)) {
     existingConfig.LLM = undefined;
   }
 
@@ -108,6 +108,10 @@ const setupUserConfigFromEnv = () => {
     CODEX_REFRESH_TOKEN: existingConfig.CODEX_REFRESH_TOKEN,
     CODEX_TOKEN_EXPIRES: existingConfig.CODEX_TOKEN_EXPIRES,
     CODEX_ACCOUNT_ID: existingConfig.CODEX_ACCOUNT_ID,
+    OPENROUTER_API_KEY:
+      process.env.OPENROUTER_API_KEY || existingConfig.OPENROUTER_API_KEY,
+    OPENROUTER_MODEL:
+      process.env.OPENROUTER_MODEL || existingConfig.OPENROUTER_MODEL,
   };
 
   writeFileSync(userConfigPath, JSON.stringify(userConfig));
